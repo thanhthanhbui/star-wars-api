@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { Header, List, Card } from 'semantic-ui-react';
+import { Header, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
+import Planet from './Planet'
+import Species from './Species'
 
-const People = () => {
+const People = ({ homeworld, }) => {
   const [people, setPeople] = useState([])
 
   useEffect(() => {
@@ -15,27 +17,31 @@ const People = () => {
 
   return (
     <>
-      <div style={{ zIndex: -1 }}>
-        <Header as='h1'>Star Wars</Header>
-        <br />
-        <Card.Group itemsPerRow={5}>
-          {
-            people.map(p => (
-              <Card key={p.url}>
-                <Card.Content>
-                  <Card.Header as='h3'>{p.name}</Card.Header>
-                  <Card.Meta>Gender: {p.gender}</Card.Meta>
-                  <Card.Meta>DOB: {p.birth_year}</Card.Meta>
-                  <Card.Meta>Home Planet: <Link>{p.homeworld}</Link></Card.Meta>
-                </Card.Content>
-              </Card>
-            ))
+        <div style={styles}>
+          <Header as='h1' style={{ textDecoration: 'underline' }}>Citizens of the Galaxy</Header>
+          {people.map(char => (
+            <div key={char.url}>
+              <Header as='h2'>{char.name}</Header>
+              <p>Gender: {char.gender}</p>
+              <p>DOB: {char.birth_year}</p>
+              <Species url={char.species} />
+              <Planet url={char.homeworld} />
+              <hr />
+            </div>
+          ))
           }
-        </Card.Group>
-      </div>
-      {/* <VideoBackground /> */}
+        </div>
     </>
   )
+}
+
+const styles = {
+  fontFamily: 'Days One',
+  color: '#FFFFFF',
+  fontStyle: 'normal',
+  fontVariant: 'normal',
+  fontWeight: 500,
+  lineHeight: '46.4px'
 }
 
 export default People

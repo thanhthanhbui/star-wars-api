@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { Header, List } from 'semantic-ui-react';
-import { Link } from 'react-router-dom'
+import { Header, List, Image } from 'semantic-ui-react';
+import VideoBackground from './VideoBackground'
 
-const Planets = () => {
+const Planets = ({ }) => {
   const [planets, setPlanets] = useState([])
 
   useEffect(() => {
@@ -14,25 +14,42 @@ const Planets = () => {
   }, [])
 
   const renderPlanets = () => {
-    return planets.map(p => (
-      <div key={p.url}>
-        <Header as='h3'>{p.name}</Header>
-        <p>Climate: {p.climate}</p>
-        <p>Terrain: {p.terrain}</p>
-        <p>Population: {p.population}</p>
+    return (
+    <div style={{ zIndex: -1, textAlign: 'center' }}>
+        <Image src='http://imageshack.com/a/img922/3783/oyvsRd.png' />
+    <div style={styles}>
+          <Header as='h1' style={{ textDecoration: 'underline' }}>Planets of the Galaxy</Header>
+    {planets.map(planet => (
+      <div key={planet.url} style={styles}>
+        <Header as='h3'>{planet.name}</Header>
+        <p>Climate: {planet.climate}</p>
+        <p>Terrain: {planet.terrain}</p>
+        <p>Population: {planet.population}</p>
+        <p>Diameter: {planet.diameter}</p>
+        <hr />
       </div>
-    ))
-  }
+    ))}
+    </div>
+    <VideoBackground />
+    </div>
+    )}
 
   return (
     <>
-      <Header as='h1'>Star Wars</Header>
-      <br />
       <List>
-        { renderPlanets() }
+        {renderPlanets()}
       </List>
     </>
   )
+}
+
+const styles = {
+  fontFamily: 'Days One',
+  color: '#FFFFFF',
+  fontStyle: 'normal',
+  fontVariant: 'normal',
+  fontWeight: 500,
+  lineHeight: '46.4px'
 }
 
 export default Planets

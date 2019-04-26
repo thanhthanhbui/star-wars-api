@@ -15,6 +15,7 @@ class VideoBackground extends React.Component {
     };
 
     const style = {
+      opacity: 0.7,
       width: '150vw',
       height: '150vh',
       position: 'fixed',
